@@ -15,13 +15,14 @@ public:
 
     void insere_aresta(Aresta e);
 
-    void busca_larg(int v, int ttl);
+    void nao_recebem_mensagem(int x, int ttl);
 
 private:
     int num_vertices_;
     int num_arestas_;
     std::vector<std::vector<int>> matriz_adj_;
-    std::vector<bool> marcado_;
+
+    std::vector<int> busca_larg(int v, int ttl);
 };
 
-#endif 
+#endif
