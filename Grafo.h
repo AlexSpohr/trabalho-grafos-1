@@ -17,6 +17,8 @@ public:
 
     void busca_larg(int v, int ttl);
 
+    void nao_recebem_mensagem(int x, int ttl);
+
 private:
     int num_vertices_;
     int num_arestas_;

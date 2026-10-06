@@ -47,21 +47,39 @@ void Grafo::insere_aresta(Aresta e) {
 
 void Grafo::busca_larg(int v, int ttl) {
     queue<int> fila;
+    marcado_.resize(num_vertices_);
+    for (int i = 0; i < num_vertices_; i++) {
+        marcado_[i] = 0;
+    }
     marcado_[v] = 1;
     fila.push(v);
 
     while(!fila.empty() && ttl > 0) {
-        int w = fila.front();
-        fila.pop();
-        for (int i = 0; i < num_vertices_; i++)
-        {
-           if (matriz_adj_[w][i] != 0) {
-                if (marcado_[i] == 0) {
-                    marcado_[i] = 1;
-                    fila.push(i);
+        int vertices_nivel = fila.size();
+        for (int j = 0; j < vertices_nivel; j++) {
+            int w = fila.front();
+            fila.pop();
+            for (int i = 0; i < num_vertices_; i++) {
+                if (matriz_adj_[w][i] != 0) {
+                    if (marcado_[i] == 0) {
+                        marcado_[i] = 1;
+                        fila.push(i);
+                    }
                 }
-           }      
+            }
         }
         ttl--;
     }
+}
+
+void Grafo::nao_recebem_mensagem(int x, int ttl) {
+    busca_larg(x, ttl);
+
+    cout << x << " " << ttl << ":";
+    for (int i = 0; i < num_vertices_; i++) {
+        if (marcado_[i] == 0) {
+            cout << " " << i;
+        }
+    }
+    cout << endl;
 }
